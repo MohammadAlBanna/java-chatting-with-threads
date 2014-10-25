@@ -2,7 +2,6 @@
 //Website: www.MBanna.info
 //Blog: www.OutOfPalBox.net
 //Facebook Page: FB.com/MBanna.info
-
 import java.awt.event.KeyEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,13 +12,11 @@ import java.net.Socket;
 public class SecondClient extends javax.swing.JFrame {
 
     static Socket SendSocket = null;
-
+    //************************************************************************//
     public SecondClient() {
         initComponents();
         SendArea.requestFocusInWindow();
         setLocation(getWidth(), 0);
-
-
     }
 
     @SuppressWarnings("unchecked")
@@ -94,19 +91,22 @@ public class SecondClient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //************************************************************************//
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
         SendMessage(SendArea.getText());
         SendArea.setText("");
-
     }//GEN-LAST:event_SendButtonActionPerformed
-
+    
+//************************************************************************//
+    //Click event, when the user press enter send the message the second client
     private void SendAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SendAreaKeyPressed
         if (KeyEvent.getKeyText(evt.getKeyChar()).equals("Enter")) {
             SendButtonActionPerformed(null);
             SendArea.setCaretPosition(0);
         }
     }//GEN-LAST:event_SendAreaKeyPressed
-
+    
+    //************************************************************************//
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -117,7 +117,8 @@ public class SecondClient extends javax.swing.JFrame {
 
         OpenSocketAndRecieve();
     }
-
+    
+    //************************************************************************//
     public static void OpenSocketAndRecieve() {
 
         new Thread() {
@@ -139,9 +140,9 @@ public class SecondClient extends javax.swing.JFrame {
             }
         }.start();
 
-
     }//end method
-
+    
+    //************************************************************************//
     public static void SendMessage(String text) {
         try {
             SendSocket = new Socket("127.0.0.1", 12345);
@@ -151,7 +152,6 @@ public class SecondClient extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-
 
     }//end method 
     // Variables declaration - do not modify//GEN-BEGIN:variables

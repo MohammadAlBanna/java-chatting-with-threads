@@ -2,7 +2,6 @@
 //Website: www.MBanna.info
 //Blog: www.OutOfPalBox.net
 //Facebook Page: FB.com/MBanna.info
-
 import java.awt.event.KeyEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,19 +9,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 // Using Threads ..
-
 public class FirstClient extends javax.swing.JFrame {
 
-  static Socket SendSocket=null;
+    static Socket SendSocket = null;
+
     public FirstClient() {
+        //Draw GUI
         initComponents();
         SendArea.requestFocusInWindow();
-        
-        
-        
     }
-
     
+    //This code generated with netbeans for GUI and events.
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -95,66 +92,67 @@ public class FirstClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendButtonActionPerformed
-SendMessage(SendArea.getText());
-SendArea.setText("");
+        SendMessage(SendArea.getText());
+        SendArea.setText("");
 
     }//GEN-LAST:event_SendButtonActionPerformed
-
+    
+    //Click event, when the user press enter send the message the second client
     private void SendAreaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SendAreaKeyPressed
-  if(KeyEvent.getKeyText(evt.getKeyChar()).equals("Enter")){
-  SendButtonActionPerformed(null);
-  SendArea.setCaretPosition(0);
-  }
+        if (KeyEvent.getKeyText(evt.getKeyChar()).equals("Enter")) {
+            SendButtonActionPerformed(null);
+            SendArea.setCaretPosition(0);
+        }
     }//GEN-LAST:event_SendAreaKeyPressed
- 
+    
+    //************************************************************************//
     public static void main(String args[]) {
+        //Run the thread
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
                 new FirstClient().setVisible(true);
             }
         });
+
+        OpenSocketAndRecieve();
+    }
+    
+    //************************************************************************//
+    public static void OpenSocketAndRecieve() {
         
-                OpenSocketAndRecieve();
-    }
-    
-    
-    public static void OpenSocketAndRecieve(){
-    
-    new Thread(){
+        new Thread() {
             @Override
-    public void run(){
-    try{
-    ServerSocket server=new ServerSocket(12345); 
-    while(true){
-    Socket socket=server.accept();
-    DataInputStream input=new DataInputStream(socket.getInputStream());
-    RecievedArea.append("\n "+input.readUTF());
-    
-    }
-    
-    }catch(Exception e){
-    e.printStackTrace();
-    }
-    }    
-    
-    
-    }.start();
-   
-    
+            public void run() {
+                try {
+                    ServerSocket server = new ServerSocket(12345);
+                    while (true) {
+                        Socket socket = server.accept();
+                        DataInputStream input = new DataInputStream(socket.getInputStream());
+                        RecievedArea.append("\n " + input.readUTF());
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }.start();
+
     }//end method
     
-    public static void SendMessage(String text){
-    try{
-    SendSocket=new Socket("127.0.0.1",12346);
-    DataOutputStream out=new DataOutputStream(SendSocket.getOutputStream());
-    out.writeUTF("The Server Said : "+text);
-    RecievedArea.append("\n I said : "+text);
-    }catch(Exception e){
-    System.out.println(e);
-    }
-    
-    
+    //************************************************************************//
+    public static void SendMessage(String text) {
+        try {
+            SendSocket = new Socket("127.0.0.1", 12346);
+            DataOutputStream out = new DataOutputStream(SendSocket.getOutputStream());
+            out.writeUTF("The Server Said : " + text);
+            RecievedArea.append("\n I said : " + text);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }//end method 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JTextArea RecievedArea;
