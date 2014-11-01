@@ -19,3 +19,8 @@ ChattingProjectWithThreads/src/SecondClient.java
 
 # Images: 
 ![](https://dl.dropboxusercontent.com/s/eu4ah76vnfvtiub/4548.PNG)
+
+# Contact Me:
+[Personal Website](http://www.MBanna.info).
+
+[My Blog](http://www.OutOfPalBox.net).
